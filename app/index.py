@@ -6,6 +6,13 @@ import joblib
 import os
 from pathlib import Path
 from .schemas import CustomerInput, ChurnResponse
+import sys
+
+try:
+    from .schemas import CustomerInput, ChurnResponse
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from schemas import CustomerInput, ChurnResponse
 
 MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
 
@@ -26,6 +33,10 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title='Customer Churn Prediction API', lifespan=lifespan)
+
+@app.get('/')
+def root():
+    return {'status': 'ok', 'docs': '/docs'}
 
 @app.get('/health')
 def health():
