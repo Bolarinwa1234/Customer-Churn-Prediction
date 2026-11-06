@@ -42,6 +42,15 @@ def root():
 def health():
     return {'status': 'healthy'}
 
+@app.get('/debug')   # remove once everything works
+def debug():
+    return {
+        'load_error': ml_assets.get('load_error', 'none'),
+        'models_dir': str(MODELS_DIR),
+        'exists': MODELS_DIR.exists(),
+        'files': [p.name for p in MODELS_DIR.glob('*')] if MODELS_DIR.exists() else [],
+    }
+
 def prediction_pipeline(customer_input):
     binary_cols = ['SeniorCitizen', 'Partner', 'Dependents',
                     'PhoneService', 'PaperlessBilling']
