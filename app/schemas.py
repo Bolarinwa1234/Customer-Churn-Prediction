@@ -4,9 +4,9 @@ from typing import Literal, List, Dict, Any
 class CustomerInput(BaseModel):
     gender: Literal["Male", "Female"]
     SeniorCitizen: int = Field(..., ge=0, le=1)
-    Partner: Literal['Yes' 'No']
-    Dependents: Literal['No' 'Yes']
-    tenure : int = Field(..., ge=0, le=1)
+    Partner: Literal['Yes', 'No']
+    Dependents: Literal['No', 'Yes']
+    tenure : int = Field(..., ge=0, le=120)
     PhoneService: Literal["Yes", "No"]
     MultipleLines: Literal["Yes", "No", "No phone service"]
     InternetService: Literal["DSL", "Fiber optic", "No"]

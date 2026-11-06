@@ -61,25 +61,25 @@ if submitted:
         "TotalCharges": float(total),
     }
 
-try:
-    response = requests.post(API_URL, json=payload, timeout=5)
-    if response.status_code ==200:
-        data = response.json()
-        prob=data['churn_probability']
-        prediction = data['prediction']
-        risk = data['risk_level']
+    try:
+        response = requests.post(API_URL, json=payload, timeout=5)
+        if response.status_code ==200:
+            data = response.json()
+            prob=data['churn_probability']
+            prediction = data['prediction']
+            risk = data['risk_level']
 
-        st.divider()
+            st.divider()
 
-        st.metric(label='Churn Probability', value=f'{prob * 100:.1f}%')
+            st.metric(label='Churn Probability', value=f'{prob * 100:.1f}%')
 
-        if risk=='High':
-            st.error(f'Prediction: {risk} Risk of Churn')
+            if risk=='High':
+                st.error(f'Prediction: {risk} Risk of Churn')
+            else:
+                st.success(f'Prediction: {risk} Risk of Churn')
         else:
-            st.success(f'Prediction: {risk} Risk of Churn')
-    else:
-        st.error(f'Error {response.status_code}: {response.text}')
-except requests.exceptions.RequestException as e:
-    st.error(f'API connection failed: {e}')
+            st.error(f'Error {response.status_code}: {response.text}')
+    except requests.exceptions.RequestException as e:
+        st.error(f'API connection failed: {e}')
 
         
