@@ -4,7 +4,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Churn Prediction", layout='centered')
 
-API_URL = os.getenv("API_URL", 'http://localhost:8000/predict')
+API_URL = "https://customer-churn-prediction-phi-ten.vercel.app/predict"
 st.title("Cutomer Churn Prediction")
 
 with st.form('churn form'):
@@ -62,7 +62,7 @@ if submitted:
     }
 
     try:
-        response = requests.post(API_URL, json=payload, timeout=5)
+        response = requests.post(API_URL, json=payload, timeout=20)
         if response.status_code ==200:
             data = response.json()
             prob=data['churn_probability']
