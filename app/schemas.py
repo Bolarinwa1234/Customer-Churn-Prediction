@@ -26,5 +26,6 @@ class CustomerInput(BaseModel):
 
 class ChurnResponse(BaseModel):
     churn_probability: float
+    prediction: str
     risk_level: str
-    top_driving_factors: List[Dict[str, Any]]
+    # top_driving_factors: List[Dict[str, Any]]
