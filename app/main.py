@@ -69,13 +69,13 @@ def predict(customer: CustomerInput):
     try:
         input_df = pd.DataFrame([customer.model_dump()])
         pred, prob = list(prediction_pipeline(input_df))
-        confidence = 'High' if prob>=0.5 else 'Low'
+        risk = 'High' if prob>=0.5 else 'Low'
         top_factors = None
 
         return ChurnResponse(
             churn_probability=round(prob, 4),
             prediction = 'Churn' if int(pred)==1 else 'No Churn',
-            risk_level=confidence,
+            risk_level=risk,
             # top_driving_factors= None
         )
     except Exception as e:
